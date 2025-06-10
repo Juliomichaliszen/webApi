@@ -1,98 +1,127 @@
-# DocumentaÁ„o da API - Sistema de Gerenciamento de Consultas MÈdicas
 
-## Vis„o Geral
-Essa È uma aplicaÁ„o Web API desenvolvida em ASP.NET Core 8 com autenticaÁ„o JWT, banco de dados SQLite e arquitetura minimalista utilizando o Entity Framework Core. Ela permite o gerenciamento de pacientes, mÈdicos e consultas.
+# Sistema de Gerenciamento de Consultas M√©dicas
+
+## Vis√£o Geral
+
+Essa √© uma aplica√ß√£o Web API desenvolvida em **ASP.NET Core 8** com autentica√ß√£o **JWT**, banco de dados **SQLite** e arquitetura minimalista utilizando **Entity Framework Core**. Ela permite o gerenciamento de pacientes, m√©dicos e consultas.  
+A aplica√ß√£o √© composta por dois m√≥dulos:
+
+- **Backend (API em ASP.NET Core)**
+- **Frontend (Interface Web com React)**
 
 ---
 
-## ConfiguraÁ„o e ExecuÁ„o
+## üñ•Ô∏è Backend (API)
 
 ### Requisitos:
 - [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- [SQLite CLI (opcional para inspeÁ„o manual do banco)](https://www.sqlite.org/download.html)
+- [SQLite CLI (opcional)](https://www.sqlite.org/download.html)
 
-### InstalaÁ„o de Pacotes Necess·rios:
-Execute este comando na raiz do projeto para instalar os pacotes obrigatÛrios:
-
-```bash
- dotnet add package Microsoft.EntityFrameworkCore.Sqlite
- dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 8.0.0
- dotnet add package Swashbuckle.AspNetCore
-```
-### Primeira vez rodando e n„o tem Migrations ? 
+### Instala√ß√£o de Pacotes Necess√°rios:
+Execute na raiz do projeto:
 
 ```bash
- dotnet tool install --global dotnet-ef
- dotnet ef migrations add InitialCreate
- dotnet ef database update
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer --version 8.0.0
+dotnet add package Swashbuckle.AspNetCore
 ```
 
-### Executando a aplicaÁ„o:
+### Primeira execu√ß√£o (sem migrations ainda):
 ```bash
- dotnet run
+dotnet tool install --global dotnet-ef
+dotnet ef migrations add InitialCreate
+dotnet ef database update
 ```
-A aplicaÁ„o estar· disponÌvel normalmente em: `https://localhost:5235` ou no endereÁo que o shell retornar
+
+### Rodando a API:
+```bash
+dotnet run
+```
+A aplica√ß√£o estar√° dispon√≠vel em: `https://localhost:5235` (ou endere√ßo retornado no terminal)
+
+### Swagger UI:
+Dispon√≠vel em: `http://localhost:5235/swagger`  
+Permite testar as rotas da API com ou sem autentica√ß√£o.
 
 ---
 
-## Estrutura de Pastas
+## üåê Frontend (React)
+
+### Requisitos:
+- [Node.js](https://nodejs.org/) instalado (vers√£o recomendada: 18.x ou superior)
+
+### Passos para rodar a interface:
+
+```bash
+npm install
+npm run dev
+```
+
+A aplica√ß√£o estar√° rodando em: [http://localhost:3000](http://localhost:3000)
+
+### Acessando o sistema:
+Acesse [http://localhost:3000/login](http://localhost:3000/login) para visualizar a p√°gina de login.
+
+---
+
+## üìÅ Estrutura de Pastas do Backend
 
 ```
 App/
-Data/               --> ContÈm o DbContext e configuraÁıes do banco
-Migrations/          --> Arquivo que contem as migrations do Banco de dados gerados pelo entity Framework
-Models/             --> ContÈm as classes da camada de domÌnio (Paciente, Medico, etc)
-Utils/              --> ContÈm classes auxiliares (TokenService)
-Program.cs          --> Arquivo principal com todos os endpoints
+‚îú‚îÄ‚îÄ Data/         --> DbContext e configura√ß√µes do banco
+‚îú‚îÄ‚îÄ Migrations/   --> Migrations geradas pelo Entity Framework
+‚îú‚îÄ‚îÄ Models/       --> Classes de dom√≠nio (Paciente, Medico, etc)
+‚îú‚îÄ‚îÄ Utils/        --> Classes auxiliares (TokenService)
+‚îî‚îÄ‚îÄ Program.cs    --> Arquivo principal com os endpoints
 ```
 
 ---
 
-## AutenticaÁ„o JWT
+## üîê Autentica√ß√£o JWT
 
-AutenticaÁ„o baseada em token JWT:
-- Endpoint de login: `/login`
-- Endpoint de registro: `/register`
-- ApÛs autenticaÁ„o, È retornado um token JWT
-- Utilize o token no `Authorization Header` com o prefixo `Bearer` para acessar as demais rotas protegidas.
+A API utiliza autentica√ß√£o JWT.
 
-**Exemplo de Header:**
+- Endpoint de login: `POST /login`
+- Endpoint de registro: `POST /register`
+
+Ap√≥s autentica√ß√£o, √© retornado um token JWT que deve ser utilizado no header:
+
 ```http
 Authorization: Bearer seu_token_jwt
 ```
 
 ---
 
-## Endpoints DisponÌveis
+## üìå Endpoints Dispon√≠veis
 
 ### Auth
-- `POST /login` - Login do usu·rio
-- `POST /register` - Cria novo usu·rio
+- `POST /login`
+- `POST /register`
 
 ### Pacientes
-- `GET /getPacientes` - Lista todos os pacientes
-- `GET /getPacientes/{id}` - Retorna paciente por ID
-- `POST /createPaciente` - Cria um novo paciente
-- `PUT /updatePaciente/{id}` - Atualiza um paciente
-- `DELETE /deletePaciente/{id}` - Remove um paciente
+- `GET /getPacientes`
+- `GET /getPacientes/{id}`
+- `POST /createPaciente`
+- `PUT /updatePaciente/{id}`
+- `DELETE /deletePaciente/{id}`
 
-### MÈdicos
-- `GET /getMedicos` - Lista todos os mÈdicos
-- `GET /getMedicos/{id}` - Retorna mÈdico por ID
-- `POST /createMedico` - Cria novo mÈdico
-- `PUT /updateMedico/{id}` - Atualiza um mÈdico
-- `DELETE /deleteMedico/{id}` - Remove um mÈdico
+### M√©dicos
+- `GET /getMedicos`
+- `GET /getMedicos/{id}`
+- `POST /createMedico`
+- `PUT /updateMedico/{id}`
+- `DELETE /deleteMedico/{id}`
 
 ### Consultas
-- `GET /getConsultas` - Lista todas as consultas com detalhes de Paciente e MÈdico
-- `GET /getConsultas/{id}` - Consulta por ID
-- `POST /createConsulta` - Cria uma nova consulta
-- `PUT /updateConsulta/{id}` - Atualiza uma consulta
-- `DELETE /deleteConsulta/{id}` - Remove uma consulta
+- `GET /getConsultas`
+- `GET /getConsultas/{id}`
+- `POST /createConsulta`
+- `PUT /updateConsulta/{id}`
+- `DELETE /deleteConsulta/{id}`
 
 ---
 
-## Models
+## üì¶ Models (exemplos)
 
 ### Paciente
 ```csharp
@@ -122,21 +151,3 @@ public class Consulta {
     public int MedicoId { get; set; }
 }
 ```
-
----
-
-## ExplicaÁ„o do Program.cs
-
-- **AddDbContext**: configura o SQLite com nome do banco `consultas.db`
-- **AddAuthentication**: ativa autenticaÁ„o JWT
-- **MapPost/MapGet/etc**: define os endpoints da API
-- **UseSwagger**: habilita a documentaÁ„o interativa da API em `/swagger`
-- **Tratamento de Erros**: erros de validaÁ„o e not found s„o tratados com mensagens claras
-
----
-
-## Swagger UI
-DisponÌvel em: `http://localhost:5235/swagger`
-Permite testar todas as rotas da aplicaÁ„o com ou sem autenticaÁ„o.
-
-
