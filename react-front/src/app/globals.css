@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --azul50: #a5d9f1;
+  --azul100: #4bb2e2;
+  --azul400: #4b67e2;
+  --azul500: #2fa3d9;
+  --azul600: #294ce8;
+  --branco01: #fffafa;
+  --laranja: #e27b4a;
+  --laranja50: #fdf2ed;
+  --laranja200: #f1bda5;
+  --vermelho: #e0494b;
+  --cinza100: #d3d3d3;
+  --cinza200: #edefef;
+  --cinza300: #dbdbdb;
+  --verde400: #4be2c6;
+  --preto3: #282a2c;
+  --preto2: #181818;
+  --branco1: #ffffff;
+  --branco3: #fbfcff;
+  --branco4: #feffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Roboto", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #fff;
+    --foreground: #000;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+@utility default-shadow {
+  box-shadow: 0 4px 4px 0px #00000040;
+}
+
+@utility bt-shadow {
+  box-shadow: 0 2px 5px 0px #00000040;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+}
+
+.react-datepicker__triangle {
+  left: auto !important;
+  right: 0.5rem !important;
+}
+
+.react-datepicker-popper {
+  margin-left: 25px !important;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+.animate-fade-out {
+  animation: fade-out 1s ease-in forwards;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #181818;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--azul400);
+  border: none;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
